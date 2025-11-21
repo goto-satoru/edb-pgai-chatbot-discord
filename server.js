@@ -2,7 +2,7 @@ import 'dotenv/config';
 import fetch from "node-fetch";
 import { Client, GatewayIntentBits, Partials } from "discord.js";
 
-const { DISCORD_BOT_TOKEN, GT_CLOUD, GT_STRUCTURE, GENAI_BASE_URL } = process.env;
+const { DISCORD_BOT_TOKEN, HM_ACCESS_KEY, GENAI_STRUCTURE_ID, GENAI_BASE_URL, GENAI_KNOWLEDGEBASE_ID } = process.env;
 
 if (!DISCORD_BOT_TOKEN) {
   console.error('DISCORD_BOT_TOKEN is not set in environment variables.');
@@ -19,15 +19,17 @@ const client = new Client({
   partials: [Partials.Channel],
 });
 
-// --- Griptape logic (keep your runStructure, createStructureRun, createOrGetThread, getStructureRunOutput as is) ---
-
-async function runStructure(prompt, structureId, user) {
+async function runStructure(prompt, structureId, user, knowledgeBaseID) {
   try {
     const userId = user.id || user;
-    // const userEmail = 'satoru.goto@enterprisedb.com'; // Discordはemailを直接取得できないため、仮の値をセット
-    // const userName = user.username || 'unknown';
-    const threadId = await createOrGetThread(userId, userEmail, userName);
-    const runId = await createStructureRun({ "args": ["-p", prompt, "-t", threadId] }, structureId, userId);
+    // const threadId = await createOrGetThread(userId);
+    const runId = await createStructureRun({ 
+      "args": [
+        "-p", prompt,
+        // "-t", threadId,
+        "-k", knowledgeBaseID,
+      ]
+    }, structureId, userId);
     console.log('Run created:', runId);
     var reply;
     do {
@@ -40,16 +42,16 @@ async function runStructure(prompt, structureId, user) {
   }
 }
 
-async function createStructureRun(data, structureId, userId) {
+async function createStructureRun(data, structureId) {
   try {
-    const url = new URL(`${GENAI_BASE_URL}/api/structures/${GT_STRUCTURE}/runs`);
+    const url = new URL(`${GENAI_BASE_URL}/api/structures/${structureId}/runs`);
     url.search = new URLSearchParams({
-      'path': JSON.stringify({ 'structure_id': `${GT_STRUCTURE}` })
+      'path': JSON.stringify({ 'structure_id': `${structureId}` })
     });
     const response = await fetch(url, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${GT_CLOUD}`,
+        'Authorization': `Bearer ${HM_ACCESS_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify(data)
@@ -71,7 +73,7 @@ async function createOrGetThread(threadId) {
     const response_get = await fetch(url_get, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${GT_CLOUD}`,
+        'Authorization': `Bearer ${HM_ACCESS_KEY}`,
         'Content-Type': 'application/json',
         'X-UPM-USER-ID': threadId,
         // 'X-UPM-USER-EMAIL': userEmail,
@@ -87,13 +89,13 @@ async function createOrGetThread(threadId) {
       const response_post = await fetch(url_post, {
         method: 'POST',
         headers: {
-          'Authorization': `Bearer ${GT_CLOUD}`,
+          'Authorization': `Bearer ${HM_ACCESS_KEY}`,
           'Content-Type': 'application/json',
           'X-UPM-USER-ID': threadId,
           // 'X-UPM-USER-EMAIL': userEmail,
           // 'X-UPM-USER-NAME': userName
         },
-        body: JSON.stringify({ "name": threadId, "alias": threadId, })
+        body: JSON.stringify({ "name": threadId, "alias": threadId })
       });
       if (!response_post.ok) {
         throw new Error(`Error creating thread: ${response_post.statusText}`);
@@ -115,11 +117,11 @@ async function getStructureRunOutput(runId) {
     const response = await fetch(url, {
       method: 'GET',
       headers: {
-        'Authorization': `Bearer ${GT_CLOUD}`,
+        'Authorization': `Bearer ${HM_ACCESS_KEY}`,
         'Content-Type': 'application/json',
-        'X-UPM-USER-ID': 'unknown',
-        'X-UPM-USER-EMAIL': 'unknown@discord',
-        'X-UPM-USER-NAME': 'unknown'
+        // 'X-UPM-USER-ID': 'unknown',
+        // 'X-UPM-USER-EMAIL': 'unknown@discord',
+        // 'X-UPM-USER-NAME': 'unknown'
       },
     });
     if (!response.ok) {
@@ -139,8 +141,9 @@ client.on('messageCreate', async (message) => {
   try {
     const prompt = message.content;
     const user = { id: message.author.id, username: message.author.username };
-    const structureId = GT_STRUCTURE;
-    const response = await runStructure(prompt, structureId, user);
+    const structureId = GENAI_STRUCTURE_ID;
+    const knowledgeBaseID = GENAI_KNOWLEDGEBASE_ID;
+    const response = await runStructure(prompt, structureId, user, knowledgeBaseID);
     await message.reply(response);
   } catch (error) {
     console.error('Error processing Discord message:', error);
@@ -153,4 +156,3 @@ client.once('clientReady', () => {
 });
 
 client.login(DISCORD_BOT_TOKEN);
-

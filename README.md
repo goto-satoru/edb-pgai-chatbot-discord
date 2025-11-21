@@ -64,3 +64,10 @@ The bot will log in and respond to messages in any channel it has access to.
 ---
 
 For more information on Discord bots, see the [Discord.js Guide](https://discordjs.guide/).
+
+
+
+stderr: usage: structure.py [-h] [-k KNOWLEDGE_BASE_ID] [-p PROMPT] [-r RULESET_ALIAS]
+                    [-s] [-t THREAD_ID]
+
+                    

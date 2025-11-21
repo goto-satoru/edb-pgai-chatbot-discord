@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: chatbot-server
+  name: genai-chatbot
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: chatbot-server
+      app: genai-chatbot
   template:
     metadata:
       labels:
-        app: chatbot-server
+        app: genai-chatbot
     spec:
       containers:
-      - name: chatbot-server
-        image: gotosatoru/genai-chatbot-server:latest
+      - name: genai-chatbot
+        image: gotosatoru/genai-chatbot:latest
         ports:
         - containerPort: 3000
         envFrom:
@@ -24,10 +24,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: chatbot-server
+  name: genai-chatbot
 spec:
   selector:
-    app: chatbot-server
+    app: genai-chatbot
   ports:
   - protocol: TCP
     port: 80

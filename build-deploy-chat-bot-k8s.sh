@@ -1,0 +1,27 @@
+#!/bin/sh
+# this script should be run on Linux x86_64 environment
+
+DOCKER_USERNAME=gotosatoru
+DOCKER_IMAGE=genai-chatbot-server
+CHATBOT_NS=chatbot
+
+docker login
+echo "=============================================================="
+echo "Building and pushing Docker image..."
+
+docker build --platform=linux/amd64 -t $DOCKER_USERNAME/$DOCKER_IMAGE:latest .
+docker images | grep gotosatoru/genai-chatbot-server
+
+echo "Pushing Docker image to Docker Hub..."
+docker push $DOCKER_USERNAME/$DOCKER_IMAGE:latest
+
+echo "=============================================================="
+echo "Available tags for $DOCKER_USERNAME/$DOCKER_IMAGE:"
+curl -s "https://hub.docker.com/v2/repositories/$DOCKER_USERNAME/$DOCKER_IMAGE/tags/"
+curl -s "https://hub.docker.com/v2/repositories/$DOCKER_USERNAME/$DOCKER_IMAGE/tags/" | jq -r '.results[].name'
+
+echo "=============================================================="
+echo "deploy chatbot server on k8s..."
+kubectl create ns $CHATBOT_NS
+kubectl create secret generic chatbot-env --from-env-file=.env -n $CHATBOT_NS
+kubectl apply -f chat-agent.yaml -n $CHATBOT_NS

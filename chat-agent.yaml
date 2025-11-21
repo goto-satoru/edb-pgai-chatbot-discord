@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chatbot-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chatbot-server
+  template:
+    metadata:
+      labels:
+        app: chatbot-server
+    spec:
+      containers:
+      - name: chatbot-server
+        image: gotosatoru/genai-chatbot-server:latest
+        ports:
+        - containerPort: 3000
+        envFrom:
+        - secretRef:
+            name: chatbot-env
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chatbot-server
+spec:
+  selector:
+    app: chatbot-server
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 3000
+  type: ClusterIP

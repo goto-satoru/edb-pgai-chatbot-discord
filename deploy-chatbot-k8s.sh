@@ -7,11 +7,15 @@ CHATBOT_NS=chatbot
 
 echo "=============================================================="
 echo "deploy chatbot server on k8s..."
-kubectl create ns $CHATBOT_NS
+if ! kubectl get ns $CHATBOT_NS >/dev/null 2>&1; then
+    kubectl create ns $CHATBOT_NS
+fi
+echo "=== .env => K8s secret"
 kubectl delete secret chatbot-env -n $CHATBOT_NS
 kubectl create secret generic chatbot-env --from-env-file=.env -n $CHATBOT_NS
 kubectl get secret chatbot-env -n $CHATBOT_NS
-kubectl apply -f chat-agent.yaml -n $CHATBOT_NS
+
+echo "=== deploy chatbot server"
+kubectl apply -f chatbot.yaml -n $CHATBOT_NS
 kubectl get po -n $CHATBOT_NS
 kubectl delete pod -l app=chatbot-server -n $CHATBOT_NS
-

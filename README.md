@@ -1,4 +1,4 @@
-# 🤖 sample Discord Chat Bot Server
+# 🤖 sample Discord Chatbot Server
 
 This is a Discord bot server that integrates with Griptape AI to process and respond to messages in Discord channels.
 
@@ -14,7 +14,7 @@ The Chatbot server is provided for educational and demonstration purposes. Use r
 ## 🧩 How It Works
 
 1. A user sends a message in a Discord channel where the bot is present
-2. The bot receives the message, processes it through Postgres AI(Griptape API)
+2. The bot receives the message, processes it through Griptape API
 3. The bot replies in the same channel
 
 ```mermaid          
@@ -60,9 +60,9 @@ To ensure your bot works correctly, you may need to enable specific Gateway Inte
 1. In your application, go to the **Bot** section.
 2. Scroll down to **Privileged Gateway Intents**.
 3. Enable the following as needed:
-   - **MESSAGE CONTENT INTENT** (required to read message content)
-   - **SERVER MEMBERS INTENT** (if your bot needs member info)
-   - **PRESENCE INTENT** (if your bot needs presence info)
+   - `MESSAGE CONTENT INTENT` (required to read message content)
+   - `SERVER MEMBERS INTENT` (if your bot needs member info)
+   - `PRESENCE INTENT` (if your bot needs presence info)
 4. Save your changes.
 
 Make sure your bot code requests only the intents you have enabled. If you use privileged intents in your code, they must be enabled here.
@@ -89,6 +89,9 @@ Run the bot locally:
 ```sh
 npm start
 ```
+
+You can check the connection between the Chatbot server and Discord with local run of the Chatbot server.
+
 
 ## 🚀 Deploy the Chatbot to Kubernetes
 
@@ -122,8 +125,9 @@ No special prefix is required unless you have configured the bot to respond only
 ## 📝 Notes
 
 - The bot ignores its own messages and other bots to prevent loops
-- All configuration is done via the `.env` file (will saved as K8s secret)
+- All configuration is done via the `.env` file (will be saved as K8s secret)
 - For production, keep your bot token and API keys secure
+- tested with Hybrid Manager 2025.11
 
 ---
 
@@ -134,4 +138,3 @@ usage of structure.py
 ```
 usage: structure.py [-h] [-k KNOWLEDGE_BASE_ID] [-p PROMPT] [-r RULESET_ALIAS] [-s] [-t THREAD_ID]
 ```
-

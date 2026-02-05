@@ -2,7 +2,7 @@
 # this script should be run on Linux x86_64 environment
 
 DOCKER_USERNAME=gotosatoru
-DOCKER_IMAGE=genai-chatbot-server
+DOCKER_IMAGE=langflow-chatbot-server
 CHATBOT_NS=chatbot
 
 echo "=============================================================="

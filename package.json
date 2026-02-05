@@ -1,7 +1,7 @@
 {
   "name": "discord-chatbot-webhook",
   "version": "1.0.0",
-  "description": "A Discord webhook server integrated with Griptape AI",
+  "description": "A Discord webhook server integrated with Langflow API",
   "main": "server.js",
   "type": "module",
   "scripts": {

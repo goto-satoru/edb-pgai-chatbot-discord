@@ -1,4 +1,3 @@
-
 # 🤖 Discord Chatbot Server (Langflow Integration)
 
 This is a Discord bot server that integrates with a Langflow API to process and respond to messages in Discord channels. The bot receives messages, sends them to the Langflow API, and replies with the generated response.
@@ -108,7 +107,7 @@ Send a message in your Discord server to test the bot. The bot will reply using 
 
 1. Build the Docker image:
    ```sh
-   docker build -t (your_docker_username)/genai-chatbot .
+   docker build -t (your_docker_username)/langflow-chatbot .
    ```
 2. Push the image to your container registry (e.g., Docker Hub, GCR, etc.).
 3. Update the Kubernetes manifest (`chatbot.yaml`) with your image and environment variables.
@@ -151,3 +150,5 @@ The bot uses the following Langflow API endpoint:
 The payload includes your prompt and any required parameters for your Langflow flow.
 
 See server.js for implementation details.
+
+- [Langflow API Reference & Examples](https://docs.langflow.org/api-reference-api-examples)

@@ -2,7 +2,7 @@
 # this script should be run on Linux x86_64 environment
 
 DOCKER_USERNAME=gotosatoru
-DOCKER_IMAGE=genai-chatbot
+DOCKER_IMAGE=langflow-chatbot
 CHATBOT_NS=chatbot
 
 docker login
@@ -10,7 +10,7 @@ echo "=============================================================="
 echo "Building and pushing Docker image..."
 
 docker build --platform=linux/amd64 -t $DOCKER_USERNAME/$DOCKER_IMAGE:latest .
-docker images | grep gotosatoru/genai-chatbot-server
+docker images | grep gotosatoru/langflow-chatbot-server
 
 echo "Pushing Docker image to Docker Hub..."
 docker push $DOCKER_USERNAME/$DOCKER_IMAGE:latest

@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: genai-chatbot
+  name: langflow-chatbot
   namespace: chatbot
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: genai-chatbot
+      app: langflow-chatbot
   template:
     metadata:
       labels:
-        app: genai-chatbot
+        app: langflow-chatbot
     spec:
       containers:
-      - name: genai-chatbot
-        image: gotosatoru/genai-chatbot:latest
+      - name: langflow-chatbot
+        image: gotosatoru/langflow-chatbot:latest
         ports:
         - containerPort: 3000
         envFrom:
@@ -25,10 +25,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: genai-chatbot
+  name: langflow-chatbot
 spec:
   selector:
-    app: genai-chatbot
+    app: langflow-chatbot
   ports:
   - protocol: TCP
     port: 80

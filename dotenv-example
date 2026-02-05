@@ -1,13 +1,11 @@
-# Example .env file for Discord Chatbot Webhook Server
-
 # Discord Bot Token (from Discord Developer Portal)
 DISCORD_BOT_TOKEN=your-discord-bot-token
 
-# Griptape Cloud API Key
-HM_ACCESS_KEY=your-griptape-cloud-api-key
+# Langflow API Base URL
+LANGFLOW_BASE_URL=http://localhost:7860
 
-# Griptape Structure ID
-GENAI_STRUCTURE_ID=your-griptape-structure-id
+# Langflow Flow ID (UUID)
+LANGFLOW_FLOW_ID=your-flow-id
 
-# Griptape Base URL
-GENAI_BASE_URL=https://your-griptape-base-url
+# Langflow API Key
+LANGFLOW_API_KEY=your-langflow-api-key

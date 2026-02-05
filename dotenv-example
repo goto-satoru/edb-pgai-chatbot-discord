@@ -1,1 +1,13 @@
-DISCORD_BOT_TOKEN= HM_ACCESS_KEY= GENAI_STRUCTURE_ID= GENAI_BASE_URL=http://upm-griptape-web.upm-griptape.svc.cluster.local GENAI_KNOWLEDGEBASE_ID=
+# Example .env file for Discord Chatbot Webhook Server
+
+# Discord Bot Token (from Discord Developer Portal)
+DISCORD_BOT_TOKEN=your-discord-bot-token
+
+# Griptape Cloud API Key
+HM_ACCESS_KEY=your-griptape-cloud-api-key
+
+# Griptape Structure ID
+GENAI_STRUCTURE_ID=your-griptape-structure-id
+
+# Griptape Base URL
+GENAI_BASE_URL=https://your-griptape-base-url

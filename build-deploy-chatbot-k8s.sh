@@ -20,4 +20,4 @@ echo "Available tags for $DOCKER_USERNAME/$DOCKER_IMAGE:"
 curl -s "https://hub.docker.com/v2/repositories/$DOCKER_USERNAME/$DOCKER_IMAGE/tags/"
 curl -s "https://hub.docker.com/v2/repositories/$DOCKER_USERNAME/$DOCKER_IMAGE/tags/" | jq -r '.results[].name'
 
-./deploy-chat-bot-k8s.sh
+./deploy-chatbot-k8s.sh

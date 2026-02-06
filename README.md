@@ -1,6 +1,6 @@
 # 🤖 Discord Chatbot Server (Langflow Integration)
 
-This is a Discord bot server that integrates with a Langflow API to process and respond to messages in Discord channels. The bot receives messages, sends them to the Langflow API, and replies with the generated response.
+This is a Discord bot server that integrates with a [Langflow API](https://docs.langflow.org/api-reference-api-examples) to process and respond to messages in Discord channels. The bot receives messages, sends them to the Langflow API, and replies with the generated response.
 
 ## ⚠️ Disclaimer
 

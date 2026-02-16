@@ -2,7 +2,7 @@ import 'dotenv/config';
 import fetch from "node-fetch";
 import { Client, GatewayIntentBits, Partials } from "discord.js";
 
-const { DISCORD_BOT_TOKEN, HM_ACCESS_KEY, GENAI_STRUCTURE_ID, GENAI_BASE_URL, GENAI_KNOWLEDGEBASE_ID } = process.env;
+const { DISCORD_BOT_TOKEN, HM_ACCESS_KEY, GENAI_STRUCTURE_ID, GENAI_BASE_URL, GENAI_KB_ID } = process.env;
 
 if (!DISCORD_BOT_TOKEN) {
   console.error('DISCORD_BOT_TOKEN is not set in environment variables.');
@@ -42,12 +42,16 @@ async function runStructure(prompt, structureId, user, knowledgeBaseID) {
   }
 }
 
-async function createStructureRun(data, structureId) {
+async function createStructureRun(data, structureId, userId) {
+  console.log('GENAI_BASE_URL:', GENAI_BASE_URL);
+  console.log('HM_ACCESS_KEY:', HM_ACCESS_KEY ? 'SET' : 'NOT SET');
   try {
     const url = new URL(`${GENAI_BASE_URL}/api/structures/${structureId}/runs`);
     url.search = new URLSearchParams({
       'path': JSON.stringify({ 'structure_id': `${structureId}` })
     });
+    console.log('Request URL:', url.toString());
+    console.log('Request Body:', JSON.stringify(data));
     const response = await fetch(url, {
       method: 'POST',
       headers: {
@@ -56,10 +60,13 @@ async function createStructureRun(data, structureId) {
       },
       body: JSON.stringify(data)
     });
+    console.log('Response Status:', response.status);
+    const responseText = await response.text();
+    console.log('Response Text:', responseText);
     if (!response.ok) {
       throw new Error(`Error creating structure run: ${response.statusText}`);
     }
-    const responseData = await response.json();
+    const responseData = JSON.parse(responseText);
     return responseData.structure_run_id;
   } catch (error) {
     console.error('Error creating structure run:', error);
@@ -76,8 +83,6 @@ async function createOrGetThread(threadId) {
         'Authorization': `Bearer ${HM_ACCESS_KEY}`,
         'Content-Type': 'application/json',
         'X-UPM-USER-ID': threadId,
-        // 'X-UPM-USER-EMAIL': userEmail,
-        // 'X-UPM-USER-NAME': userName
       },
     });
     if(!response_get.ok) {
@@ -92,8 +97,6 @@ async function createOrGetThread(threadId) {
           'Authorization': `Bearer ${HM_ACCESS_KEY}`,
           'Content-Type': 'application/json',
           'X-UPM-USER-ID': threadId,
-          // 'X-UPM-USER-EMAIL': userEmail,
-          // 'X-UPM-USER-NAME': userName
         },
         body: JSON.stringify({ "name": threadId, "alias": threadId })
       });
@@ -142,7 +145,7 @@ client.on('messageCreate', async (message) => {
     const prompt = message.content;
     const user = { id: message.author.id, username: message.author.username };
     const structureId = GENAI_STRUCTURE_ID;
-    const knowledgeBaseID = GENAI_KNOWLEDGEBASE_ID;
+    const knowledgeBaseID = GENAI_KB_ID;
     const response = await runStructure(prompt, structureId, user, knowledgeBaseID);
     await message.reply(response);
   } catch (error) {

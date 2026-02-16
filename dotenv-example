@@ -1,1 +1,5 @@
-DISCORD_BOT_TOKEN= HM_ACCESS_KEY= GENAI_STRUCTURE_ID= GENAI_BASE_URL=http://upm-griptape-web.upm-griptape.svc.cluster.local GENAI_KNOWLEDGEBASE_ID=
+DISCORD_BOT_TOKEN= 
+HM_ACCESS_KEY= 
+GENAI_STRUCTURE_ID= 
+GENAI_BASE_URL=http://upm-griptape-web.upm-griptape.svc.cluster.local 
+GENAI_KB_ID=

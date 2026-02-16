@@ -43,11 +43,6 @@ async function runStructure(prompt, structureId, user, knowledgeBaseID) {
 }
 
 async function createStructureRun(data, structureId, userId) {
-  console.log('createStructureRun:')
-  console.log(' data:       ', data);
-  console.log(' structureId:', structureId);
-  console.log(' userID:     ', userId);
-
   console.log('GENAI_BASE_URL:', GENAI_BASE_URL);
   console.log('HM_ACCESS_KEY:', HM_ACCESS_KEY);
   try {

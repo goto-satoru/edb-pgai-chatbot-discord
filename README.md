@@ -72,11 +72,14 @@ Make sure your bot code requests only the intents you have enabled. If you use p
 Create a `.env` file in your project root with the following:
 
 ```env
-GENAI_BASE_URL=http://upm-griptape-web.upm-griptape.svc.cluster.local
+GENAI_BASE_URL=https://<portal_domain_name>/launchpad/apps/genai-builder
 GENAI_STRUCTURE_ID=your-genai-builder-structure-id
+GENAI_KB_ID=your-knowledgebase-id
 HM_ACCESS_KEY=your-hybrid-manager-access-key
 DISCORD_BOT_TOKEN=your-discord-bot-token
 ```
+
+remove `/api/structures/<structure_id>/runs` from the Invocation URL of the Structure.
 
 Install dependencies:
 

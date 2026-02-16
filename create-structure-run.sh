@@ -10,11 +10,13 @@ if [ -z "$HM_ACCESS_KEY" ]; then
   echo "Error: HM_ACCESS_KEY is not set"
   exit 1
 fi
+echo "HM_ACCESS_KEY: $HM_ACCESS_KEY"
 
 if [ -z "$GENAI_BASE_URL" ]; then
   echo "Error: GENAI_BASE_URL is not set"
   exit 1
 fi
+echo "GENAI_BASE_URL: $GENAI_BASE_URL"
 
 if [ -z "$GENAI_STRUCTURE_ID" ]; then
   echo "Error: GENAI_STRUCTURE_ID is not set"

@@ -1,5 +1,10 @@
+# HM on RKE2
+GENAI_BASE_URL=https://<portal_domain_name>/launchpad/apps/genai-builder 
+# for HM on kind
+#GENAI_BASE_URL=http://localhost:8000/launchpad/apps/genai-builder
+# if your chatbot is running on the same K8s
+#GENAI_BASE_URL=http://upm-griptape-web.upm-griptape.svc.cluster.local
 DISCORD_BOT_TOKEN= 
 HM_ACCESS_KEY= 
 GENAI_STRUCTURE_ID= 
-GENAI_BASE_URL=http://upm-griptape-web.upm-griptape.svc.cluster.local 
 GENAI_KB_ID=

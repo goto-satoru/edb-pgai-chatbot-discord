@@ -43,8 +43,13 @@ async function runStructure(prompt, structureId, user, knowledgeBaseID) {
 }
 
 async function createStructureRun(data, structureId, userId) {
+  console.log('createStructureRun:')
+  console.log(' data:       ', data);
+  console.log(' structureId:', structureId);
+  console.log(' userID:     ', userId);
+
   console.log('GENAI_BASE_URL:', GENAI_BASE_URL);
-  console.log('HM_ACCESS_KEY:', HM_ACCESS_KEY ? 'SET' : 'NOT SET');
+  console.log('HM_ACCESS_KEY:', HM_ACCESS_KEY);
   try {
     const url = new URL(`${GENAI_BASE_URL}/api/structures/${structureId}/runs`);
     url.search = new URLSearchParams({
@@ -122,9 +127,6 @@ async function getStructureRunOutput(runId) {
       headers: {
         'Authorization': `Bearer ${HM_ACCESS_KEY}`,
         'Content-Type': 'application/json',
-        // 'X-UPM-USER-ID': 'unknown',
-        // 'X-UPM-USER-EMAIL': 'unknown@discord',
-        // 'X-UPM-USER-NAME': 'unknown'
       },
     });
     if (!response.ok) {

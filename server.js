@@ -102,7 +102,7 @@ client.on('messageCreate', async (message) => {
   }
 });
 
-client.once('ready', () => {
+client.once('clientReady', () => {
   console.log(`Discord bot logged in as ${client.user.tag}`);
 });
 

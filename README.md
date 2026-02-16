@@ -1,6 +1,6 @@
 # 🤖 sample Discord Chatbot Server
 
-This is a Discord bot server that integrates with Griptape AI to process and respond to messages in Discord channels.
+This is a Discord bot server that integrates with EDB GenAI Builder to process and respond to messages in Discord channels.
 
 ## ⚠️ Disclaimer
 

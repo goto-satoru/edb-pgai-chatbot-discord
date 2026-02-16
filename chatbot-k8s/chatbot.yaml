@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
       - name: langflow-chatbot
-        image: gotosatoru/langflow-chatbot:latest
+        # image: gotosatoru/langflow-chatbot:latest
+        image: langflow-chatbot:latest
         ports:
         - containerPort: 3000
         envFrom:

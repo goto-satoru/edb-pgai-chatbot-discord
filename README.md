@@ -76,9 +76,22 @@ Create a `.env` file in your project root with the following (see dotenv-example
 ```env
 DISCORD_BOT_TOKEN=your-discord-bot-token
 LANGFLOW_BASE_URL=http://localhost:7860
-LANGFLOW_FLOW_ID=your-flow-id(uuid)
 LANGFLOW_API_KEY=your-langflow-api-key
+LANGFLOW_FLOW_ID=your-flow-id(uuid)
 ```
+
+if you running Langflow on Hybrid Manager on kind, you should forward the port 7860 of langflow service in upm-langflow napespace as follows:
+
+```
+kubectl -n upm-langflow port-forward svc/langflow 7860:7860
+```
+
+If your application runs on the same K8s as Hybrid Manager, Langflow service URL should be 
+
+```
+http://langflow.upm-langflow.svc:7860
+```
+
 
 Install dependencies:
 

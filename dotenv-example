@@ -4,8 +4,8 @@ DISCORD_BOT_TOKEN=your-discord-bot-token
 # Langflow API Base URL
 LANGFLOW_BASE_URL=http://localhost:7860
 
-# Langflow Flow ID (UUID)
-LANGFLOW_FLOW_ID=your-flow-id
-
 # Langflow API Key
 LANGFLOW_API_KEY=your-langflow-api-key
+
+# Langflow Flow ID (UUID)
+LANGFLOW_FLOW_ID=your-flow-id
